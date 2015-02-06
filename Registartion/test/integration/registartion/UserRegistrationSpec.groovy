@@ -1,15 +1,12 @@
 package registartion
 
-
-
-import grails.test.mixin.*
-import org.junit.*
+import grails.test.mixin.TestFor
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
 @TestFor(UserRegistration)
-class UserRegistrationTests {
+class UserRegistrationSpec {
 
     void testSomething() {
        fail "Implement me"

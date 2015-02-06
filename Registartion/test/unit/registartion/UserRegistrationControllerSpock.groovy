@@ -7,7 +7,7 @@ import grails.test.mixin.*
 
 @TestFor(UserRegistrationController)
 @Mock(UserRegistration)
-class UserRegistrationControllerTests {
+class UserRegistrationControllerSpock {
 
     def populateValidParams(params) {
         assert params != null
