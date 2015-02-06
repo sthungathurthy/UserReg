@@ -1,14 +1,29 @@
 package registartion
 
-import grails.test.mixin.TestFor
+import grails.plugin.spock.IntegrationSpec
 
 /**
- * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
+ * test for UserRegistration
  */
-@TestFor(UserRegistration)
-class UserRegistrationSpec {
+class UserRegistrationSpec extends IntegrationSpec {
 
-    void testSomething() {
-       fail "Implement me"
+    def "test persisting of user registration by giving all mandatory data"() {
+        when: "I create a registration"
+        def userRegistration = new UserRegistration(firstName: 'Saidulu', lastName: 'Thunga', email: 'sai@gmail.com', password: 'test', userName: 'test',address: 'hyd')
+        userRegistration.save()
+
+        then:'registration is saved successfully'
+        userRegistration.id != null
+        userRegistration.firstName == 'Saidulu'
+    }
+
+    def "test persisting of user registration without giving all mandatory data"() {
+        when: "I create a registration, without giving first name and last name"
+        def userRegistration = new UserRegistration(email: 'sai@gmail.com', password: 'test', userName: 'test',address: 'hyd')
+        userRegistration.save()
+
+        then:'registration saved failed'
+        userRegistration.id == null
+        userRegistration.validate() == false
     }
 }

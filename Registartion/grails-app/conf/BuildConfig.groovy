@@ -34,7 +34,7 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
-        runtime ':ojdbc14:10.2.0.4'
+        runtime ':ojdbc14:10.2.0.2'
         test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
     }
 

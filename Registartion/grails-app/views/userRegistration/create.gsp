@@ -3,11 +3,66 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'userRegistration.label', default: 'UserRegistration')}" />
+		<g:set var="entityName" value="${message(code: 'userRegistration.label')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
+        %{--<g:javascript src=""/>--}%
+        %{--<r:script disposition="jquery"/>--}%
+
+
+        <r:script type="text/javascript">
+            $(document).ready(function()
+            {
+               addValidationRules();
+            });
+
+            function persistRegistration(){
+                if($("#userRegistrationForm").validate().form()){
+                      $("#userRegistrationForm").submit();
+                }
+            }
+
+            /**
+             * Adding jQuery validation rules for registration form
+             */
+            function addValidationRules(){
+                $("#userRegistrationForm").validate(
+                        jQuery.validator.setDefaults({
+                            errorElement: "div",
+                            rules: {
+                                firstName: {
+                                    required: true
+                                },
+                                lastName:{
+                                    required: true
+                                },
+                                userName:{
+                                    required: true
+                                },
+                                password:{
+                                    required: true
+                                }
+                            },
+                            messages: {
+                                firstName: {
+                                    required: "<g:message code='registration.firstName.required'/>"
+                                },
+                                lastName: {
+                                    required: "<g:message code='registration.lastName.required'/>"
+                                },
+                                userName: {
+                                    required: "<g:message code='registration.userName.required'/>"
+                                },
+                                password:{
+                                    required: "<g:message code='registration.password.required'/>"
+                                }
+                            }
+                        })
+                );
+            }
+        </r:script>
 	</head>
 	<body>
-		<a href="#create-userRegistration" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+		<a href="#create-userRegistration" class="skip" tabindex="-1"><g:message code="default.link.skip.label"/></a>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
@@ -26,12 +81,12 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form action="save" >
+			<g:form name="userRegistrationForm" action="save">
 				<fieldset class="form">
-					<g:render template="form"/>
+					<g:render template="form" model="[userRegistration:userRegistration]"/>
 				</fieldset>
 				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+                    <input class="button" type="submit" value="${g.message(code: 'default.button.create.label')}" title="Add"  onClick="persistRegistration();return false;"/>
 				</fieldset>
 			</g:form>
 		</div>

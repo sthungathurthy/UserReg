@@ -16,7 +16,7 @@ class UserRegistrationController {
     }
 
     def create() {
-        [userRegistrationInstance: new UserRegistration(params)]
+        [userRegistration: new UserRegistration(params)]
     }
 
     def save() {

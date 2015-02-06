@@ -1,13 +1,12 @@
 package registartion
 
-
-
-import org.junit.*
-import grails.test.mixin.*
+import grails.test.mixin.Mock
+import grails.test.mixin.TestFor
+import spock.lang.Specification
 
 @TestFor(UserRegistrationController)
-@Mock(UserRegistration)
-class UserRegistrationControllerSpock {
+@Mock([UserRegistration])
+class UserRegistrationControllerSpock extends Specification{
 
     def populateValidParams(params) {
         assert params != null
