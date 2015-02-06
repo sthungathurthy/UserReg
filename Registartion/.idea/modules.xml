@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Registartion.iml" filepath="$PROJECT_DIR$/Registartion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Registartion-grailsPlugins.iml" filepath="$PROJECT_DIR$/Registartion-grailsPlugins.iml" />
+    </modules>
+  </component>
+</project>
+
