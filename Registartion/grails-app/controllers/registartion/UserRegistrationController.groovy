@@ -12,11 +12,11 @@ class UserRegistrationController {
 
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        [userRegistrationInstanceList: UserRegistration.list(params), userRegistrationInstanceTotal: UserRegistration.count()]
+        render(view:'list',  model:[userRegistrationInstanceList: UserRegistration.list(params), userRegistrationInstanceTotal: UserRegistration.count()])
     }
 
     def create() {
-        [userRegistration: new UserRegistration(params)]
+        render(view:'create', model:[userRegistration: new UserRegistration(params)])
     }
 
     def save() {
@@ -38,7 +38,7 @@ class UserRegistrationController {
             return
         }
 
-        [userRegistrationInstance: userRegistrationInstance]
+        render(view:'show', model:[userRegistrationInstance: userRegistrationInstance])
     }
 
     def edit(Long id) {

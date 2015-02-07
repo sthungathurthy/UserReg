@@ -5,6 +5,52 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'userRegistration.label', default: 'UserRegistration')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
+        <r:require module="registration"/>
+        <r:script type="text/javascript">
+            $(document).ready(function()
+            {
+               addValidationRules();
+            });
+
+            /**
+             * Adding jQuery validation rules for registration form
+             */
+            function addValidationRules(){
+                $("#userRegistrationForm").validate(
+                        jQuery.validator.setDefaults({
+                            errorElement: "div",
+                            rules: {
+                                firstName: {
+                                    required: true
+                                },
+                                lastName:{
+                                    required: true
+                                },
+                                userName:{
+                                    required: true
+                                },
+                                password:{
+                                    required: true
+                                }
+                            },
+                            messages: {
+                                firstName: {
+                                    required: "<g:message code='registration.firstName.required'/>"
+                                },
+                                lastName: {
+                                    required: "<g:message code='registration.lastName.required'/>"
+                                },
+                                userName: {
+                                    required: "<g:message code='registration.userName.required'/>"
+                                },
+                                password:{
+                                    required: "<g:message code='registration.password.required'/>"
+                                }
+                            }
+                        })
+                );
+            }
+        </r:script>
 	</head>
 	<body>
 		<a href="#edit-userRegistration" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -27,14 +73,15 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form method="post" >
+			<g:form method="post" action="update" name="userRegistrationForm">
 				<g:hiddenField name="id" value="${userRegistrationInstance?.id}" />
 				<g:hiddenField name="version" value="${userRegistrationInstance?.version}" />
 				<fieldset class="form">
-					<g:render template="form"/>
+					<g:render template="form" model="[userRegistration:userRegistrationInstance]"/>
 				</fieldset>
 				<fieldset class="buttons">
-					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+                    <input class="save" type="submit" value="${g.message(code: 'default.button.update.label')}" title="Add"  onClick="persistRegistration();return false;"/>
+					%{--<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />--}%
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>

@@ -22,7 +22,42 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list userRegistration">
-			
+
+                <g:if test="${userRegistrationInstance?.firstName}">
+                    <li class="fieldcontain">
+                        <span id="firstName-label" class="property-label"><g:message code="userRegistration.firstName.label" default="First Name" /></span>
+
+                        <span class="property-value" aria-labelledby="firstName-label"><g:fieldValue bean="${userRegistrationInstance}" field="firstName"/></span>
+
+                    </li>
+                </g:if>
+
+                <g:if test="${userRegistrationInstance?.lastName}">
+                    <li class="fieldcontain">
+                        <span id="lastName-label" class="property-label"><g:message code="userRegistration.lastName.label" default="Last Name" /></span>
+
+                        <span class="property-value" aria-labelledby="lastName-label"><g:fieldValue bean="${userRegistrationInstance}" field="lastName"/></span>
+
+                    </li>
+                </g:if>
+
+                <g:if test="${userRegistrationInstance?.userName}">
+                    <li class="fieldcontain">
+                        <span id="userName-label" class="property-label"><g:message code="userRegistration.userName.label" default="User Name" /></span>
+
+                        <span class="property-value" aria-labelledby="userName-label"><g:fieldValue bean="${userRegistrationInstance}" field="userName"/></span>
+
+                    </li>
+                </g:if>
+
+                <g:if test="${userRegistrationInstance?.password}">
+                    <li class="fieldcontain">
+                        <span id="password-label" class="property-label"><g:message code="userRegistration.password.label" default="Password" /></span>
+
+                        <span class="property-value" aria-labelledby="password-label"><g:fieldValue bean="${userRegistrationInstance}" field="password"/></span>
+
+                    </li>
+                </g:if>
 				<g:if test="${userRegistrationInstance?.dateOfBirth}">
 				<li class="fieldcontain">
 					<span id="dateOfBirth-label" class="property-label"><g:message code="userRegistration.dateOfBirth.label" default="Date Of Birth" /></span>
@@ -50,42 +85,7 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${userRegistrationInstance?.firstName}">
-				<li class="fieldcontain">
-					<span id="firstName-label" class="property-label"><g:message code="userRegistration.firstName.label" default="First Name" /></span>
-					
-						<span class="property-value" aria-labelledby="firstName-label"><g:fieldValue bean="${userRegistrationInstance}" field="firstName"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${userRegistrationInstance?.lastName}">
-				<li class="fieldcontain">
-					<span id="lastName-label" class="property-label"><g:message code="userRegistration.lastName.label" default="Last Name" /></span>
-					
-						<span class="property-value" aria-labelledby="lastName-label"><g:fieldValue bean="${userRegistrationInstance}" field="lastName"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${userRegistrationInstance?.password}">
-				<li class="fieldcontain">
-					<span id="password-label" class="property-label"><g:message code="userRegistration.password.label" default="Password" /></span>
-					
-						<span class="property-value" aria-labelledby="password-label"><g:fieldValue bean="${userRegistrationInstance}" field="password"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${userRegistrationInstance?.userName}">
-				<li class="fieldcontain">
-					<span id="userName-label" class="property-label"><g:message code="userRegistration.userName.label" default="User Name" /></span>
-					
-						<span class="property-value" aria-labelledby="userName-label"><g:fieldValue bean="${userRegistrationInstance}" field="userName"/></span>
-					
-				</li>
-				</g:if>
-			
+
 			</ol>
 			<g:form>
 				<fieldset class="buttons">

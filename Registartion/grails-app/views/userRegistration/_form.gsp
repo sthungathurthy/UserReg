@@ -8,7 +8,7 @@
         <g:message code="userRegistration.firstName.label"/>
         <span class="required"></span>
     </label>
-    <input type="text"  id="firstName" class="required" name="firstName" value="${userRegistration?.firstName}"/>
+    <g:field type="text"  class="required" name="firstName" value="${userRegistration?.firstName}"/>
     <div for="firstName" generated="true" class="error"></div>
 </div>
 

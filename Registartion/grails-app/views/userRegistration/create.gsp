@@ -5,21 +5,13 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'userRegistration.label')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
-        %{--<g:javascript src=""/>--}%
-        %{--<r:script disposition="jquery"/>--}%
-
+        <r:require module="registration"/>
 
         <r:script type="text/javascript">
             $(document).ready(function()
             {
                addValidationRules();
             });
-
-            function persistRegistration(){
-                if($("#userRegistrationForm").validate().form()){
-                      $("#userRegistrationForm").submit();
-                }
-            }
 
             /**
              * Adding jQuery validation rules for registration form

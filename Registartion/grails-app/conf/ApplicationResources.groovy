@@ -4,4 +4,8 @@ modules = {
         resource url:'js/application.js'
         resource url:'js/jquery.validate-1.9.0.js'
     }
+
+    'registration'{
+        resource url:'js/registration.js'
+    }
 }

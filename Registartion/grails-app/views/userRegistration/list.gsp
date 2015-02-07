@@ -23,37 +23,25 @@
 			<table>
 				<thead>
 					<tr>
-					
+                        <g:sortableColumn property="userName" title="${message(code: 'userRegistration.userName.label', default: 'User Name')}" />
+                        <g:sortableColumn property="firstName" title="${message(code: 'userRegistration.firstName.label', default: 'First Name')}" />
+                        <g:sortableColumn property="lastName" title="${message(code: 'userRegistration.lastName.label', default: 'Last Name')}" />
 						<g:sortableColumn property="dateOfBirth" title="${message(code: 'userRegistration.dateOfBirth.label', default: 'Date Of Birth')}" />
-					
 						<g:sortableColumn property="email" title="${message(code: 'userRegistration.email.label', default: 'Email')}" />
-					
 						<g:sortableColumn property="address" title="${message(code: 'userRegistration.address.label', default: 'Address')}" />
-					
-						<g:sortableColumn property="firstName" title="${message(code: 'userRegistration.firstName.label', default: 'First Name')}" />
-					
-						<g:sortableColumn property="lastName" title="${message(code: 'userRegistration.lastName.label', default: 'Last Name')}" />
-					
-						<g:sortableColumn property="password" title="${message(code: 'userRegistration.password.label', default: 'Password')}" />
-					
+
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${userRegistrationInstanceList}" status="i" var="userRegistrationInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${userRegistrationInstance.id}">${fieldValue(bean: userRegistrationInstance, field: "dateOfBirth")}</g:link></td>
-					
-						<td>${fieldValue(bean: userRegistrationInstance, field: "email")}</td>
-					
-						<td>${fieldValue(bean: userRegistrationInstance, field: "address")}</td>
-					
-						<td>${fieldValue(bean: userRegistrationInstance, field: "firstName")}</td>
-					
-						<td>${fieldValue(bean: userRegistrationInstance, field: "lastName")}</td>
-					
-						<td>${fieldValue(bean: userRegistrationInstance, field: "password")}</td>
-					
+						<td><g:link action="show" id="${userRegistrationInstance.id}">${userRegistrationInstance.userName}</g:link></td>
+						<td>${userRegistrationInstance.firstName}</td>
+						<td>${userRegistrationInstance.lastName}</td>
+						<td>${userRegistrationInstance.dateOfBirth}</td>
+						<td>${userRegistrationInstance.email}</td>
+						<td>${userRegistrationInstance.address}</td>
 					</tr>
 				</g:each>
 				</tbody>
