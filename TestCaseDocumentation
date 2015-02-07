@@ -1,0 +1,193 @@
+Integration Test cases for the domain classes:
+
+1. Ingenaral the integartion tests are used to test the behaviur of service layer some time data layer. Means we can test the behaviour of services and domain classes(if domain classs any method). These test cases are reside in the folder-  test/integration/
+
+
+2. In general unit test cases are used to test the behavoiur of controller. Means how the controller flow is happening is basically tested. These specifications are reside in the folder- test/uint/
+
+
+3. Create a integration specification for the domain class 'UserRegistartion' in the folder- test/integration/package/
+
+eg: If the domain class fully qualified name com.test.USer then the spec is under- test/integration/com/test/ folder
+
+package registartion
+import grails.plugin.spock.IntegrationSpec
+class UserRegistrationSpec extends IntegrationSpec {
+
+    def "test persisting of user registration by giving all mandatory data"() {
+        when: "I create a registration"
+        def userRegistration = new UserRegistration(firstName: 'Saidulu', lastName: 'Thunga', email: 'sai@gmail.com', password: 'test', userName: 'test',address: 'hyd')
+        userRegistration.save()
+
+        then:'registration is saved successfully'
+        userRegistration.id != null
+        userRegistration.firstName == 'Saidulu'
+    }
+}
+
+4. Create a unit specification for the controller class 'UserRegistartionController' in the folder- test/uint/registration/
+
+  A sample test case looks like as follows: 
+
+					package registartion
+					import grails.test.mixin.Mock
+					import grails.test.mixin.TestFor
+					import spock.lang.Specification
+					@TestFor(UserRegistrationController)
+					@Mock([UserRegistration])
+					class UserRegistrationControllerSpec extends Specification{
+
+						def userRegistration
+						def setup() {
+							userRegistration = new UserRegistration(firstName: 'Saidulu', lastName: 'Thunga', email: 'sai@gmail.com', password: 'test', userName: 'test',address: 'hyd')
+							userRegistration.save()
+						}
+						def "test index action"() {
+							when:
+							controller.index()
+							then:
+							"/userRegistration/list" == response.redirectedUrl
+						}
+
+						def "test list action"() {
+							when:
+							controller.list()
+							then:
+							view == "/userRegistration/list"
+							model.userRegistrationInstanceList.size() == 1
+							model.userRegistrationInstanceTotal == 1
+						}
+
+						def "test create action"() {
+							when:
+							controller.create()
+							then:
+							model.userRegistration !=null
+						}
+
+						def "test save action "() {
+							when:'call save action by giving all mandatory fields'
+							params.firstName = 'sai'
+							params.lastName = 'kumar'
+							params.userName = 'naven'
+							params.password = 'test'
+							controller.save()
+							then:
+							response.redirectedUrl.contains('/userRegistration/show/')
+							response.reset()
+							params.clear()
+
+							when:'call save action by without giving all mandatory fields'
+							params.firstName = 'sai'
+							params.lastName = 'kumar'
+							controller.save()
+							then:
+							model.userRegistrationInstance != null
+							view == '/userRegistration/create'
+						}
+
+						def "test show"() {
+							when:'call show action without passing id'
+							controller.show()
+							then:
+							flash.message != null
+							response.redirectedUrl == '/userRegistration/list'
+
+							when:'call show action with passing action'
+							params.id = userRegistration.id
+							controller.show()
+							then:
+							model.userRegistrationInstance == userRegistration
+						}
+
+						def  "test edit action"() {
+							when:'call edit action without id'
+							controller.edit()
+							then:
+							flash.message != null
+							response.redirectedUrl == '/userRegistration/list'
+
+							when: 'call edit action with id'
+							params.id = userRegistration.id
+							def model = controller.edit()
+
+							then:
+							model.userRegistrationInstance == userRegistration
+						}
+
+						def "test update action"() {
+							when:
+							controller.update()
+							then:
+							flash.message != null
+							response.redirectedUrl == '/userRegistration/list'
+							response.reset()
+
+							when:'update first name'
+							params.id = userRegistration.id
+							params.firstName = 'Patrick'
+							controller.update()
+							then:
+							response.redirectedUrl == "/userRegistration/show/${userRegistration.id}"
+							userRegistration.firstName == 'Patrick'
+							response.reset()
+
+							when:
+							params.id = userRegistration.id
+							params.version = -1
+							controller.update()
+							then:
+							view == "/userRegistration/edit"
+							model.userRegistrationInstance != null
+							model.userRegistrationInstance.errors.getFieldError('version')
+							flash.message != null
+						}
+
+						def 'test delete action'() {
+							when:
+							controller.delete()
+							then:
+							flash.message != null
+							response.redirectedUrl == '/userRegistration/list'
+							response.reset()
+
+							when:
+							params.id = userRegistration.id
+							controller.delete()
+							then:
+							UserRegistration.count() == 0
+							UserRegistration.get(userRegistration.id) == null
+							response.redirectedUrl == '/userRegistration/list'
+						}
+					}
+
+4. In the above example, let's pick up a piece of code
+                        def "test index action"() {
+							when:
+							controller.index()
+							then:
+							"/userRegistration/list" == response.redirectedUrl
+						}
+						
+ In this case we are testing the controller behaviour and says that when the controller comes to 'index' action it redirects to list action. 	
+
+5. Let's take another piece of code
+						def  "test edit action"() {
+							when:'call edit action without id'
+							controller.edit()
+							then:
+							flash.message != null
+							response.redirectedUrl == '/userRegistration/list'
+
+							when: 'call edit action with id'
+							params.id = userRegistration.id
+							def model = controller.edit()
+
+							then:
+							model.userRegistrationInstance == userRegistration
+							view == '/userRegistration/edit'
+						}
+
+In this case, when the controller comes to 'edit' action without id(params.id is not set) then it redirects to 'list' action other wise get the instace for a edit, in this case view is 'edit.gsp'.
+
+Like wise, we write unit test cases to know the controller behaviour.

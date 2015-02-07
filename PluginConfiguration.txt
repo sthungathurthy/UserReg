@@ -1,0 +1,38 @@
+Following steps are for configuring spock0.7 plugin in an grails application
+
+1. Modify BuildConfig.groovy file to include the following
+
+grails.project.dependency.resolution = {
+  repositories {
+    grailsCentral()
+    mavenCentral()
+  }
+  dependencies {
+    test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
+  }
+  plugins {
+    test(":spock:0.7") {
+      exclude "spock-grails-support"
+    }
+  }
+}
+
+2. This change make avalilble the spock plugib to the grails application.
+
+3. We can write a sample unit specification as follows
+
+
+import grails.test.mixin.*
+@TestFor(PostController)
+class PostControllerSpec extends spock.lang.Specification {
+    def "Index action should redirect to list page"() {
+        when:
+        controller.index()
+
+        then:
+        response.redirectedUrl == "/post/list"
+    }
+    …
+}
+
+4. The test case name should end with 'Spec' and it extends 'Specification'
